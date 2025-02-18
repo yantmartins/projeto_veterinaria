@@ -29,7 +29,7 @@ $agendamentos = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Agendamentos</title>
-    <link rel="stylesheet" href="style.css"> <!-- Importa o CSS -->
+    <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
     <h1>Lista de Agendamentos</h1>
@@ -48,7 +48,6 @@ $agendamentos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <h2>Lista de Agendamentos</h2>
         
-        <!-- Tabela para exibir os agendamentos -->
         <table border="1" cellpadding="10">
             <thead>
                 <tr>

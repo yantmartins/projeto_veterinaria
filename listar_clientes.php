@@ -1,20 +1,20 @@
 <?php
-// Conectar com o banco de dados
+
 include 'Database.php';
 $database = new Database();
 $conn = $database->connect();
 
-$mensagem = ""; // Variável para mensagens de sucesso ou erro
+$mensagem = ""; 
 
-// Verificar se foi solicitado deletar um cliente
+
 if (isset($_GET['deletar'])) {
     $cliente_id = $_GET['deletar'];
 
-    // SQL para deletar o cliente
+    
     $sql = "DELETE FROM clientes WHERE id = :id";
     $stmt = $conn->prepare($sql);
 
-    // Executar o comando de deletação
+    
     if ($stmt->execute([':id' => $cliente_id])) {
         $mensagem = "Cliente deletado com sucesso!";
     } else {
@@ -22,7 +22,7 @@ if (isset($_GET['deletar'])) {
     }
 }
 
-// Buscar todos os clientes
+
 $sql = "SELECT * FROM clientes";
 $stmt = $conn->query($sql);
 $clientes = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -34,7 +34,7 @@ $clientes = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Clientes</title>
-    <link rel="stylesheet" href="style.css"> <!-- Importa o CSS -->
+    <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
     <h1>Lista de Clientes</h1>
@@ -54,7 +54,7 @@ $clientes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <h2>Lista de Clientes</h2>
         
-        <!-- Tabela para exibir os clientes -->
+        
         <table border="1" cellpadding="10">
             <thead>
                 <tr>
