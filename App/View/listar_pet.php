@@ -1,21 +1,13 @@
 <?php
-// Conectar com o banco de dados
-include 'Database.php';
-$database = new Database();
-$conn = $database->connect();
+require_once '../Controller/Pet.php';
 
-$mensagem = ""; // Variável para mensagens de sucesso ou erro
 
 // Verificar se foi solicitado deletar um pet
-if (isset($_GET['deletar'])) {
-    $pet_id = $_GET['deletar'];
-
-    // SQL para deletar o pet
-    $sql = "DELETE FROM pets WHERE id = :id";
-    $stmt = $conn->prepare($sql);
-
-    // Executar o comando de deletação
-    if ($stmt->execute([':id' => $pet_id])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_pet'])) {
+    $id_pet = intval($_POST ['id_pet']);
+    $pet = new Pet();
+    
+    if ($pet->excluir($pet_id)) {
         $mensagem = "Pet deletado com sucesso!";
     } else {
         $mensagem = "Erro ao deletar pet.";
@@ -23,9 +15,8 @@ if (isset($_GET['deletar'])) {
 }
 
 // Buscar todos os pets
-$sql = "SELECT pets.*, clientes.nome AS dono FROM pets INNER JOIN clientes ON pets.dono_id = clientes.id";
-$stmt = $conn->query($sql);
-$pets = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$petts = new Pet();
+$pets = $petts->buscar();
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +25,7 @@ $pets = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Pets</title>
-    <link rel="stylesheet" href="style.css"> <!-- Importa o CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>Lista de Pets</h1>
@@ -53,7 +44,6 @@ $pets = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <h2>Lista de Pets</h2>
         
-        <!-- Tabela para exibir os pets -->
         <table border="1" cellpadding="10">
             <thead>
                 <tr>

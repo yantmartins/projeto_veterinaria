@@ -1,11 +1,13 @@
 <?php
 
 class Database {
-    private $host = "127.0.0.1";
-    private $db_name = "clinica_veterinaria";
-    private $username = "root";
-    private $password = "";
     private $conn;
+    private string $host = "127.0.0.1";
+    private string $db_name = "clinica_veterinaria";
+    private string $username = "root";
+    private string $password = "";
+    private string $table;
+    
 
     public function connect() {
         try {
@@ -55,11 +57,7 @@ class ClinicaVeterinaria {
     }
 
     
-    public function cadastrarPet($nome, $especie, $raca, $dono_id) {
-        $sql = "INSERT INTO pets (nome, especie, raca, dono_id) VALUES (:nome, :especie, :raca, :dono_id)";
-        $stmt = $this->conn->prepare($sql);
-        return $stmt->execute(["nome" => $nome, "especie" => $especie, "raca" => $raca, "dono_id" => $dono_id]);
-    }
+    
 
     
     public function editarPet($id, $nome, $especie, $raca, $dono_id) {
@@ -105,9 +103,7 @@ class ClinicaVeterinaria {
 
     
     public function listarAgendamentos() {
-        $sql = "SELECT agendamentos.*, pets.nome AS pet FROM agendamentos INNER JOIN pets ON agendamentos.pet_id = pets.id";
-        $stmt = $this->conn->query($sql);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $sql = 
     }
 }
 
